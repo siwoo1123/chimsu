@@ -60,11 +60,12 @@ def start():
 
     for minute in range(1, 1451, 10):
         nounImmuljil = abs(rd.uniform(0, foreign_matter))
-        print(nounImmuljil)
         nounImmuljil = round(nounImmuljil, 5)
         foreign_matter -= nounImmuljil
         volume -= nounImmuljil + precipitation
-        volume += (maximum_capacity - volume) * 0.8
+        volume += 95
+        if volume > maximum_capacity:
+            volume = maximum_capacity
         data["minute"].append(minute)
         if volume < 0:
             data["an overflowing amount"].append(-1 * volume)
@@ -89,39 +90,12 @@ def start():
         if isChimsu:
             break
 
-    # while not isChimsu and minute <= 1440:
-    #     nounImmuljil = rd.randint(0, foreign_matter)
-    #     foreign_matter -= nounImmuljil
-    #     volume -= nounImmuljil + precipitation
-    #     volume += (maximum_capacity-volume)*0.8
-    #     data["minute"].append(minute)
-    #     if volume < 0:
-    #         data["an overflowing amount"].append(-1 * volume)
-    #         if -1 * volume >= 25.5:
-    #             isChimsu = True
-    #     else:
-    #         data["an overflowing amount"].append(0)
-    #
-    #     df = pd.DataFrame(data)
-    #     figure = plt.Figure(figsize=(6, 5), dpi=100)
-    #     ax = figure.add_subplot(111)
-    #     chart_type = FigureCanvasTkAgg(figure, window)
-    #     chart_type.get_tk_widget().grid(row=1, rowspan=119, column=3)
-    #     df = df[['minute', 'an overflowing amount']].groupby('minute').sum()
-    #     df.plot(kind='line', legend=True, ax=ax)
-    #
-    #     if isChimsu:
-    #         insertText(text, f"이물질이 {nounImmuljil}만큼 들어감 -> {minute}분 뒤 침수 시작")
-    #     else:
-    #         insertText(text, f"이물질이 {nounImmuljil}만큼 들어감 -> {minute}분 뒤 침수 없음")
-    #     minute += 1
-
 
 t1 = Label(window, text='시간당 강수량 (mm)')
 e1 = Entry(window)
 t2 = Label(window, text='배수구 최대 용량 (mm)')
 e2 = Entry(window)
-t3 = Label(window, text='이물질이 들어가기 전\n배수구에서 처리 가능한 량 (mm)')
+t3 = Label(window, text='배수구의 비어있는 용량 (mm)')
 e3 = Entry(window)
 t4 = Label(window, text='배수구 주변의 이물질 양 (mm)')
 e4 = Entry(window)
